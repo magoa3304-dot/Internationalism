@@ -3,127 +3,467 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>Internationalism at Mayo College</title>
 
-<!-- CSS -->
+<!-- Stylesheet -->
 <link rel="stylesheet" href="styles.css" />
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
-
-<!-- Manifest -->
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0d1117" />
-
-<!-- Icons -->
-<link rel="apple-touch-icon" href="icon-512.png" />
-
 </head>
-
 <body>
 
 <!-- ============================================================
-     NAVBAR (Glass, Floating, Centered)
+   NAVBAR — Dynamic Glassmorphic Gradient
 ============================================================ -->
-<nav class="glass-nav">
+<nav id="navbar" class="glass-nav">
   <div class="nav-left">
-    <h2 class="logo">🌐 Mayo Internationalism</h2>
+    <h2 class="logo">Mayo Internationalism</h2>
   </div>
 
   <div class="nav-right">
-    <button class="nav-btn" data-tab="Gallery">Gallery</button>
-    <button class="nav-btn" data-tab="Sports">Sports</button>
-    <button class="nav-btn" data-tab="Sports Collaboration with Round Square">Sports Collab</button>
-    <button class="nav-btn" data-tab="Round Square">Round Square</button>
-    <button class="nav-btn" data-tab="Exchanges">Exchanges</button>
-    <button class="nav-btn" data-tab="Insightful Expeditions">Expeditions</button>
-    <button class="nav-btn" data-tab="World Scholars' Cup">WSC</button>
-    <button class="nav-btn" data-tab="Model United Nations">MUN</button>
-    <button class="nav-btn" data-tab="Fests and Camps">Fests</button>
-    <button class="nav-btn" data-tab="Drama">Drama</button>
-    <button class="nav-btn" data-tab="Trek">Trek</button>
+    <a href="#gallery" class="nav-link">Gallery</a>
+    <a href="#map-section" class="nav-link">World Map</a>
+    <a href="#events" class="nav-link">Events</a>
+    <a href="#about" class="nav-link">About</a>
   </div>
 </nav>
 
 <!-- ============================================================
-     SEARCH + FILTER BAR
+   HERO SECTION — Massive, immersive
+============================================================ -->
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Internationalism at Mayo College</h1>
+    <p class="hero-subtext">
+      Expanding horizons. Connecting cultures. Inspiring global leaders.
+    </p>
+    <button class="hero-btn">Explore the World</button>
+  </div>
+</header>
+
+<!-- ============================================================
+   SEARCH + FILTER WRAPPER
 ============================================================ -->
 <section class="search-filter-wrapper">
-  <input id="searchInput" placeholder="Search any city, country or event...">
-  <button id="filterBtn" class="filter-btn">Filter</button>
-</section>
+  <input type="text" id="searchInput" placeholder="Search events, cities, or countries...">
+  
+  <button id="filterBtn" class="filter-btn">Filters</button>
 
-<div id="searchMessage"></div>
-
-<!-- ============================================================
-     HERO
-============================================================ -->
-<section class="hero">
-  <h1>Internationalism at Mayo College</h1>
-  <p>Transcending borders worldwide — Mayo students explore, learn and lead beyond classrooms, embracing a global outlook.</p>
+  <p id="searchMessage" class="search-message"></p>
 </section>
 
 <!-- ============================================================
-     MAP
+   MAP SECTION
 ============================================================ -->
-<div class="map-container">
+<section id="map-section" class="map-wrapper">
   <div id="map"></div>
-  <button id="resetMap" class="reset-map">⟳</button>
-</div>
+
+  <!-- Reset Button -->
+  <div id="resetMap" class="reset-map-btn">⟳</div>
+</section>
 
 <!-- ============================================================
-     CONTENT
+   EVENT SECTION — container for all categories
 ============================================================ -->
-<section class="content" id="content"></section>
+<section id="events" class="events-container">
+  <!-- ============================================================
+       EVENT CATEGORY TABS (auto-generated later by JS)
+  ============================================================= -->
+  <div id="tabBar" class="tab-bar"></div>
+
+  <!-- ============================================================
+       EVENT GROUPS (JS will fill)
+  ============================================================= -->
+  <div id="eventSection" class="event-section"></div>
+</section>
 
 <!-- ============================================================
-     FILTER POPUP
+   GALLERY SECTION
 ============================================================ -->
-<div id="filterModal" class="filter-modal">
-  <div class="filter-box">
-    <div class="filter-header">
-      <h3>Filter Categories</h3>
-      <button id="closeFilter" class="close-filter">✖</button>
+<section id="gallery" class="gallery-section">
+  <h2 class="section-title">International Gallery</h2>
+  <p class="section-subtext">
+    A visual journey across continents — capturing the spirit of Mayo’s global explorations.
+  </p>
+
+  <div id="galleryGrid" class="gallery-grid">
+    <!-- JS will auto-fill gallery cards -->
+  </div>
+</section>
+
+<!-- ============================================================
+   ABOUT SECTION
+============================================================ -->
+<section id="about" class="about-wrapper">
+  <h2 class="section-title">About the Initiative</h2>
+  <p class="about-text">
+    Internationalism at Mayo College stands as a testament to the school's commitment
+    to nurturing global citizens. With an ever-growing network of international
+    collaborations, conferences, exchanges, cultural immersions, and global
+    educational expeditions, students gain exposure to the world beyond borders.
+  </p>
+
+  <p class="about-text">
+    Every journey — whether academic, cultural, environmental, leadership-based, or
+    collaborative — strengthens the belief that learning expands when you explore.
+  </p>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Global Exposure</h3>
+      <p>Students visit countries across six continents for learning experiences.</p>
     </div>
 
-    <div id="filterList"></div>
+    <div class="about-card">
+      <h3>Collaborative Learning</h3>
+      <p>
+        Mayo participates in Round Square, MUN, WSC, and global forums that
+        encourage leadership & diplomacy.
+      </p>
+    </div>
 
-    <div class="filter-actions">
-      <button id="applyFilters" class="apply-btn">Apply</button>
-      <button id="resetFilters" class="reset-btn">Reset</button>
+    <div class="about-card">
+      <h3>Adventure & Culture</h3>
+      <p>
+        From treks to cultural festivals, Mayo ensures well-rounded personality growth.
+      </p>
     </div>
   </div>
+</section>
+
+<!-- ============================================================
+   FOOTER
+============================================================ -->
+<footer class="footer">
+  <h3>Mayo College — Internationalism Program</h3>
+  <p>Connecting young minds to the world around them.</p>
+  <p class="footer-small">Designed with passion • Built for global learning</p>
+</footer>
+
+<!-- ============================================================
+   JAVASCRIPT FILE
+============================================================ -->
+<script src="app.js"></script>
+
+</body>
+</html>
+<!-- ============================================================
+   SECTION DIVIDERS & VISUAL SEPARATORS
+============================================================ -->
+<div class="divider"></div>
+
+<section id="global-impact" class="impact-section">
+  <h2 class="section-title">Global Impact</h2>
+  <p class="section-subtext">
+    Mayo’s international initiatives extend far beyond travel — they shape world-ready students.
+  </p>
+
+  <div class="impact-grid">
+    <div class="impact-card">
+      <img src="assets/icons/globe.png" alt="Global Icon" class="impact-icon">
+      <h3>Worldwide Connections</h3>
+      <p>
+        Collaboration with schools and institutions across the world
+        ensures cultural and academic understanding.
+      </p>
+    </div>
+
+    <div class="impact-card">
+      <img src="assets/icons/leadership.png" alt="Leadership Icon" class="impact-icon">
+      <h3>Leadership Growth</h3>
+      <p>
+        Conferences like Round Square, RSIC, and WSC develop essential leadership traits.
+      </p>
+    </div>
+
+    <div class="impact-card">
+      <img src="assets/icons/mountain.png" alt="Trek Icon" class="impact-icon">
+      <h3>Adventure Learning</h3>
+      <p>
+        From Everest Base Camp treks to environmental trips — learning happens outdoors too.
+      </p>
+    </div>
+
+    <div class="impact-card">
+      <img src="assets/icons/culture.png" alt="Culture Icon" class="impact-icon">
+      <h3>Cultural Exchange</h3>
+      <p>
+        Exchanges with Europe, UK, Australia, and Asia help students embrace global diversity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   INTERACTIVE TIMELINE SECTION
+============================================================ -->
+<section id="timeline" class="timeline-section">
+  <h2 class="section-title">Journey Through Time</h2>
+  <p class="section-subtext">
+    Explore the growth of Mayo’s international footprint year by year.
+  </p>
+
+  <div class="timeline-container">
+    <div class="timeline-progress"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2005 — Beginning of Global Outreach</h3>
+        <p>Mayo joined its first major international collaboration program.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2010 — First Round Square Conference</h3>
+        <p>Students participated in conferences exploring leadership, democracy, and IDEALS.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2014 — Expanded Exchange Network</h3>
+        <p>New partnerships formed with leading schools in Europe and Australia.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2018 — World Scholars’ Cup</h3>
+        <p>Mayo made its mark at WSC global rounds and the Tournament of Champions.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2023 — International Expansion Peak</h3>
+        <p>
+          More global events than any previous year — a record milestone for internationalism.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   CALL TO ACTION
+============================================================ -->
+<section class="cta-section">
+  <h2>Discover the World Through Mayo</h2>
+  <p>
+    Explore our map, browse the gallery, and dive into our worldwide opportunities.
+  </p>
+  <a href="#map" class="cta-btn">Explore Map</a>
+</section>
+<!-- ============================================================
+   INTERNATIONAL PROGRAMS SHOWCASE
+============================================================ -->
+<section id="programs" class="programs-section">
+  <h2 class="section-title">Our International Programs</h2>
+  <p class="section-subtext">
+    A dynamic mix of conferences, exchanges, expeditions, and global collaborations.
+  </p>
+
+  <div class="program-grid">
+
+    <div class="program-card">
+      <img src="assets/programs/rs.jpg" alt="Round Square" class="program-img">
+      <div class="program-info">
+        <h3>Round Square</h3>
+        <p>
+          Mayo actively participates in RSIC and regional conferences, focusing on the
+          IDEALS of Internationalism, Democracy, Environmentalism, Adventure,
+          Leadership, and Service.
+        </p>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <img src="assets/programs/wsc.jpg" alt="WSC" class="program-img">
+      <div class="program-info">
+        <h3>World Scholars’ Cup</h3>
+        <p>
+          Global rounds in Bangkok, Seoul, and Doha have broadened student perspectives
+          and promoted collaborative learning.
+        </p>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <img src="assets/programs/exchange.jpg" alt="Exchanges" class="program-img">
+      <div class="program-info">
+        <h3>International Exchanges</h3>
+        <p>
+          Partnerships with Germany, UK, Australia, Belgium, South Africa, and France provide
+          immersive cultural experiences.
+        </p>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <img src="assets/programs/expedition.jpg" alt="Expeditions" class="program-img">
+      <div class="program-info">
+        <h3>Insightful Expeditions</h3>
+        <p>
+          Geography, forensic science, historical, and cultural expeditions create
+          powerful learning moments worldwide.
+        </p>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <img src="assets/programs/sports.jpg" alt="Sports" class="program-img">
+      <div class="program-info">
+        <h3>International Sports</h3>
+        <p>
+          From polo in Harvard to cricket in Bangladesh, Mayo promotes global sportsmanship.
+        </p>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <img src="assets/programs/trek.jpg" alt="Trek" class="program-img">
+      <div class="program-info">
+        <h3>Trekking & Adventure</h3>
+        <p>
+          Students experience transformative adventure — including the Everest Base Camp trek.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+   FULLSCREEN GALLERY ENTRY BUTTON
+============================================================ -->
+<section class="gallery-entry-section">
+  <h2 class="section-title">Experience Our Journey</h2>
+  <p class="section-subtext">Step into our visual gallery of unforgettable moments.</p>
+
+  <button id="openGalleryFullscreen" class="gallery-entry-btn">
+    View Full Gallery
+  </button>
+</section>
+
+<div id="galleryFullscreen" class="gallery-fullscreen hidden">
+  <div class="gallery-fullscreen-header">
+    <h2>Internationalism Gallery</h2>
+    <button id="closeGalleryFullscreen" class="close-btn">✕</button>
+  </div>
+
+  <div class="gallery-fullscreen-grid" id="galleryGridFullscreen">
+    <!-- JS will insert images here -->
+  </div>
 </div>
+<!-- ============================================================
+   STUDENT STORIES — CAROUSEL
+============================================================ -->
+<section id="stories" class="stories-section">
+  <h2 class="section-title">Student Reflections</h2>
+  <p class="section-subtext">
+    First-hand experiences that shaped global understanding and leadership.
+  </p>
+
+  <div class="stories-carousel">
+    <button class="carousel-btn left" id="storiesPrev">‹</button>
+
+    <div class="stories-track" id="storiesTrack">
+
+      <div class="story-card">
+        <img src="assets/stories/story1.jpg" alt="Kenya RSIC" class="story-img">
+        <h3>RSIC Kenya</h3>
+        <p>
+          “Representing Mayo at RSIC Kenya taught me the power of global collaboration
+          and cultural respect.”
+        </p>
+        <span class="story-author">— Aarav (Class XI)</span>
+      </div>
+
+      <div class="story-card">
+        <img src="assets/stories/story2.jpg" alt="Germany Exchange" class="story-img">
+        <h3>German Exchange</h3>
+        <p>
+          “Living in Germany for three weeks helped me understand independence,
+          responsibility, and cultural diversity.”
+        </p>
+        <span class="story-author">— Kabir (Class X)</span>
+      </div>
+
+      <div class="story-card">
+        <img src="assets/stories/story3.jpg" alt="Spain Trip" class="story-img">
+        <h3>Spain Forensic Tour</h3>
+        <p>
+          “From crime labs to historical monuments — Spain changed how I see science
+          and the world.”
+        </p>
+        <span class="story-author">— Rehan (Class XI)</span>
+      </div>
+
+      <div class="story-card">
+        <img src="assets/stories/story4.jpg" alt="France Exchange" class="story-img">
+        <h3>French Exchange</h3>
+        <p>
+          “Staying with a French host family was an unforgettable experience that
+          helped me learn a new culture from the inside.”
+        </p>
+        <span class="story-author">— Neil (Class IX)</span>
+      </div>
+
+      <div class="story-card">
+        <img src="assets/stories/story5.jpg" alt="Tokyo Basketball" class="story-img">
+        <h3>Japan Basketball Tour</h3>
+        <p>
+          “Playing basketball in Tokyo showed me how sports can unite people beyond
+          language barriers.”
+        </p>
+        <span class="story-author">— Arjun (Class X)</span>
+      </div>
+
+    </div>
+
+    <button class="carousel-btn right" id="storiesNext">›</button>
+  </div>
+</section>
 
 <!-- ============================================================
-     SVG MAP PINS
+   FOOTER — TRANSLUCENT GLASS
 ============================================================ -->
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <g id="pin-red"><svg width="26" height="42"><path fill="#EA4335"/></svg></g>
-    <g id="pin-orange"><svg width="26" height="42"><path fill="#FB8C00"/></svg></g>
-    <g id="pin-green"><svg width="26" height="42"><path fill="#34A853"/></svg></g>
-    <g id="pin-white"><svg width="26" height="42"><path fill="white"/></svg></g>
-    <g id="pin-blue"><svg width="26" height="42"><path fill="#4285F4"/></svg></g>
-    <g id="pin-purple"><svg width="26" height="42"><path fill="#A142F4"/></svg></g>
-    <g id="pin-cyan"><svg width="26" height="42"><path fill="#00ACC1"/></svg></g>
-    <g id="pin-pink"><svg width="26" height="42"><path fill="#FF4081"/></svg></g>
-    <g id="pin-yellow"><svg width="26" height="42"><path fill="#FBC02D"/></svg></g>
-    <g id="pin-black"><svg width="26" height="42"><path fill="#000000"/></svg></g>
-  </defs>
-</svg>
+<footer class="footer">
+  <div class="footer-gradient"></div>
 
-<!-- ============================================================
-     JS FILES
-============================================================ -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <div class="footer-inner">
+    <h3 class="footer-title">Internationalism at Mayo College</h3>
 
-<!-- YOUR JS -->
-<script src="app.js" defer></script>
+    <p class="footer-text">
+      Celebrating global learning, leadership, and cultural understanding through
+      our worldwide programs.
+    </p>
 
+    <div class="footer-links">
+      <a href="#map">Map</a>
+      <a href="#programs">Programs</a>
+      <a href="#stories">Stories</a>
+      <a href="#Gallery">Gallery</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <p class="footer-small">© 2025 Mayo College | Internationalism Department</p>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,115 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Internationalism at Mayo College</title>
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="styles.css" />
 
 <!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-<!-- External CSS -->
-<link rel="stylesheet" href="style.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+
+<!-- Manifest -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#0d1117" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="icon-512.png" />
 
 </head>
+
 <body>
 
 <!-- ============================================================
-     FLOATING GLASS NAVBAR
+     NAVBAR (Glass, Floating, Centered)
 ============================================================ -->
 <nav class="glass-nav">
-    <div class="nav-left">
-        <h2 class="logo">Internationalism</h2>
-    </div>
+  <div class="nav-left">
+    <h2 class="logo">🌐 Mayo Internationalism</h2>
+  </div>
 
-    <div class="nav-right">
-        <button id="homeTab" class="nav-btn active">Home</button>
-        <button id="galleryTab" class="nav-btn">Gallery</button>
-        <button id="mapTab" class="nav-btn">Map</button>
-    </div>
+  <div class="nav-right">
+    <button class="nav-btn" data-tab="Gallery">Gallery</button>
+    <button class="nav-btn" data-tab="Sports">Sports</button>
+    <button class="nav-btn" data-tab="Sports Collaboration with Round Square">Sports Collab</button>
+    <button class="nav-btn" data-tab="Round Square">Round Square</button>
+    <button class="nav-btn" data-tab="Exchanges">Exchanges</button>
+    <button class="nav-btn" data-tab="Insightful Expeditions">Expeditions</button>
+    <button class="nav-btn" data-tab="World Scholars' Cup">WSC</button>
+    <button class="nav-btn" data-tab="Model United Nations">MUN</button>
+    <button class="nav-btn" data-tab="Fests and Camps">Fests</button>
+    <button class="nav-btn" data-tab="Drama">Drama</button>
+    <button class="nav-btn" data-tab="Trek">Trek</button>
+  </div>
 </nav>
-
-<!-- Spacer (nav height) -->
-<div style="height:95px;"></div>
-
-<!-- ============================================================
-     HERO SECTION
-============================================================ -->
-<section class="hero-section">
-    <div class="hero-content">
-        <h1>Internationalism at Mayo College</h1>
-        <p>
-            Mayo College connects students across continents through exchanges, global
-            conferences, adventure trips, international competitions and global
-            collaborations — shaping future-ready global citizens.
-        </p>
-    </div>
-</section>
 
 <!-- ============================================================
      SEARCH + FILTER BAR
 ============================================================ -->
 <section class="search-filter-wrapper">
-    <input type="text" id="searchInput" placeholder="Search events, countries, trips..." />
+  <input id="searchInput" placeholder="Search any city, country or event...">
+  <button id="filterBtn" class="filter-btn">Filter</button>
+</section>
 
-    <button id="filterBtn" class="filter-btn">Filter</button>
+<div id="searchMessage"></div>
+
+<!-- ============================================================
+     HERO SECTION
+============================================================ -->
+<section class="hero">
+  <h1>Internationalism at Mayo College</h1>
+  <p>Transcending borders worldwide — Mayo students explore, learn and lead beyond classrooms, embracing a global outlook.</p>
 </section>
 
 <!-- ============================================================
      MAP SECTION
 ============================================================ -->
-<section id="mapSection" class="map-section">
-    <div id="map"></div>
-    <button id="resetMap" class="reset-map-btn">⟳</button>
-</section>
+<div class="map-container">
+  <div id="map"></div>
+  <button id="resetMap" class="reset-map">⟳</button>
+</div>
 
 <!-- ============================================================
-     EVENTS LIST SECTION (dynamic)
+     CONTENT AREA (Events + Gallery)
 ============================================================ -->
-<section id="eventsContainer" class="events-container">
-    <!-- JS inserts items here -->
-</section>
-
-<!-- ============================================================
-     GALLERY SECTION (hidden by default)
-============================================================ -->
-<section id="gallerySection" class="gallery-section" style="display:none;">
-    <h2 class="gallery-heading">Photo Gallery</h2>
-    <div id="galleryGrid" class="gallery-grid">
-        <!-- JS loads 40+ images dynamically -->
-    </div>
-</section>
+<section class="content" id="content"></section>
 
 <!-- ============================================================
      FILTER POPUP
 ============================================================ -->
-<div id="filterModal" class="modal-overlay">
-    <div class="modal-box">
-        <div class="modal-header">
-            <h3>Filter Categories</h3>
-            <span id="closeFilter" class="close-btn">✖</span>
-        </div>
-
-        <div id="filterOptions" class="filter-options">
-            <!-- JS adds category checkboxes -->
-        </div>
-
-        <div class="modal-buttons">
-            <button id="applyFilters" class="modal-btn">Apply</button>
-            <button id="resetFilters" class="modal-btn">Reset</button>
-        </div>
+<div id="filterModal" class="filter-modal">
+  <div class="filter-box">
+    <div class="filter-header">
+      <h3>Filter Categories</h3>
+      <button id="closeFilter" class="close-filter">✖</button>
     </div>
+
+    <div id="filterList"></div>
+
+    <div class="filter-actions">
+      <button id="applyFilters" class="apply-btn">Apply</button>
+      <button id="resetFilters" class="reset-btn">Reset</button>
+    </div>
+  </div>
 </div>
 
-<!-- Load Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- ============================================================
+     SVG MAP PINS
+============================================================ -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
 
-<!-- Load Main Script -->
-<script src="script.js"></script>
+    <!-- COLORS -->
+    <g id="pin-red">
+      <svg width="26" height="42" viewBox="0 0 26 42">
+        <path d="M13 0C5.8 0 0 5.8 0 13c0 10.6 13 29 13 29s13-18.4 13-29C26 5.8 20.2 0 13 0z"
+              fill="#EA4335" stroke="black" stroke-width="2"/>
+        <circle cx="13" cy="13" r="6" fill="white" stroke="black" stroke-width="2"/>
+      </svg>
+    </g>
+
+    <g id="pin-orange"><svg width="26" height="42"><path fill="#FB8C00"/></svg></g>
+    <g id="pin-green"><svg width="26" height="42"><path fill="#34A853"/></svg></g>
+    <g id="pin-white"><svg width="26" height="42"><path fill="white"/></svg></g>
+    <g id="pin-blue"><svg width="26" height="42"><path fill="#4285F4"/></svg></g>
+    <g id="pin-purple"><svg width="26" height="42"><path fill="#A142F4"/></svg></g>
+    <g id="pin-cyan"><svg width="26" height="42"><path fill="#00ACC1"/></svg></g>
+    <g id="pin-pink"><svg width="26" height="42"><path fill="#FF4081"/></svg></g>
+    <g id="pin-yellow"><svg width="26" height="42"><path fill="#FBC02D"/></svg></g>
+    <g id="pin-black"><svg width="26" height="42"><path fill="#000000"/></svg></g>
+
+  </defs>
+</svg>
+
+<!-- ============================================================
+     JS FILES
+============================================================ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
